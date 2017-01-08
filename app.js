@@ -4,10 +4,9 @@
 	angular.module('alanheuertz', [])
 		.config(Config);
 
-	Config.$inject = ['$locationProvider', '$logProvider'];
+	Config.$inject = ['$locationProvider'];
 
-	function Config($locationProvider, $logProvider) {
+	function Config($locationProvider) {
 		$locationProvider.html5Mode(true);
-		$logProvider.debugEnabled(false);
 	}
 })();

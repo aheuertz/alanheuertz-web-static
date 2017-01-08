@@ -8,61 +8,35 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <style>
   body {
-    font: 20px Montserrat, sans-serif;
-    line-height: 1.8;
-    color: #f5f6f7;
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 { 
-    background-color: #1abc9c;
-    color: #ffffff;
+      background-color: #1abc9c;
+      color: #ffffff;
   }
   .bg-2 { 
-    background-color: #2f2f2f;
-    color: #fff;
+      background-color: #2f2f2f;
+      color: #fff;
   }
-  .large-block {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-  .loader.in-progress {
-    background: #ddd;
-  }
-  .loader.complete {
-    background: #1abc9c;
-  }
-  .loader .complete {
-    background: #1abc9c;
-  }
-  .loader .in-progress {
-    background: #2f2f2f;
-  }
-  .loader .slot {
-    padding: 1px;
-    height: 20px;
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
   }
   </style>
 </head>
 <body data-ng-controller="AppController as appVm">
 
-<nav class="navbar navbar-default" style="margin-bottom: 0px;">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Alan Heuertz</a>
-    </div>
-  </div>
-</nav>
-
-<div data-loader></div>
-
-<div class="large-block container-fluid bg-1 text-center">
+<div class="container-fluid bg-1 text-center">
   <h3 class="margin">Sorry!</h3>
   <img src="img/out-of-order.png" class="img-responsive margin" style="display:inline" alt="Out of Order" width="350" height="350">
   <h3>Redesign imminent. Come back later.</h3>
 </div>
 
-<footer class="large-block container-fluid bg-2 text-center">
+<footer class="container-fluid bg-2 text-center">
   <p>This site is maintained by Alan Heuertz.</p>
   <p class="ng-hide" data-ng-show="appVm.versionLoaded">Version: <span data-ng-bind="appVm.version.major"></span>.<span data-ng-bind="appVm.version.minor"></span>.<span data-ng-bind="appVm.version.patch"></span></p>
 </footer>
@@ -70,9 +44,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="app.js"></script>
 <script src="app.controller.js"></script>
-<script src="components/loader/loader.controller.js"></script>
-<script src="components/loader/loader.directive.js"></script>
-<script src="components/version/version.provider.js"></script>
+<script src="utils/version.provider.js"></script>
 </body>
 </html>
 
