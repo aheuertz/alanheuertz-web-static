@@ -1,12 +1,23 @@
 (function () {
 	'use strict';
 
-	angular.module('alanheuertz', [])
+	angular.module('alanheuertz', ['ui.router'])
 		.config(Config);
 
-	Config.$inject = ['$locationProvider'];
+	Config.$inject = ['$locationProvider', '$logProvider', '$stateProvider', '$urlRouterProvider'];
 
-	function Config($locationProvider) {
-		$locationProvider.html5Mode(true);
+	function Config($locationProvider, $logProvider, $stateProvider, $urlRouterProvider) {
+		$urlRouterProvider.otherwise('/');
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
+		$logProvider.debugEnabled(false);
+
+		$stateProvider
+			.state('home', {
+				'url': '/',
+				'templateUrl': 'home.html'
+			});
 	}
 })();
