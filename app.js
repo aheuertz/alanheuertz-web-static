@@ -21,7 +21,9 @@
 			})
 			.state('algorithms', {
 				'url': '/algorithms',
-				'templateUrl': 'algorithms.html'
+				'templateUrl': 'algorithms.html',
+				'controller': 'AlgorithmsController',
+				'controllerAs': 'vm'
 			});
 	}
 })();
