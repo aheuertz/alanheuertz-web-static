@@ -1,0 +1,49 @@
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+	font: 20px Montserrat, sans-serif;
+	line-height: 1.8;
+	color: #f5f6f7;
+}
+p {
+	font-size: 16px;
+}
+.wrapper {
+	min-height: 100%;
+	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+footer, .push {
+	height: 155px;
+}
+.bg-1 {
+	background-color: #1abc9c;
+	color: #ffffff;
+}
+.bg-2 {
+	background-color: #2f2f2f;
+	color: #fff;
+}
+.large-block {
+	padding-top: 70px;
+	padding-bottom: 70px;
+}
+
+/* Loader */
+.loader.in-progress {
+	background: #ddd;
+}
+.loader.complete {
+	background: #1abc9c;
+}
+.loader .complete {
+	background: #1abc9c;
+}
+.loader .in-progress {
+	background: #2f2f2f;
+}
+.loader .slot {
+	padding: 1px;
+	height: 20px;
+}

@@ -18,6 +18,10 @@
 			.state('home', {
 				'url': '/',
 				'templateUrl': 'home.html'
+			})
+			.state('algorithms', {
+				'url': '/algorithms',
+				'templateUrl': 'algorithms.html'
 			});
 	}
 })();
