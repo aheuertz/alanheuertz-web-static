@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import outOfOrder from './out-of-order.png';
 import './App.css';
+import { NavigationBar } from './components/NavigationBar';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavigationBar title="Alan Heuertz" />
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          
+          <img src={outOfOrder} className="out-of-order" alt="out of order" />
         </header>
       </div>
     );
