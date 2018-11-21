@@ -12,8 +12,8 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Uploading assets to S3 bucket 'hueydev-alanheuertz-web-static'...
-      - aws s3 cp --recursive --acl public-read ./build s3://hueydev-alanheuertz-web-static/
+      - echo Uploading assets to S3 bucket 'alanheuertz.com'...
+      - aws s3 cp --recursive --acl public-read ./build s3://alanheuertz.com/
       - echo Upload completed on `date`
 artifacts:
   files:
