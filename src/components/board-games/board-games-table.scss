@@ -1,0 +1,9 @@
+$tbody-border: 1px solid #eee;
+
+table.board-games-table {
+  tbody {
+    border-left: $tbody-border;
+    border-right: $tbody-border;
+    border-bottom: $tbody-border;
+  }
+}
