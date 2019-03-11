@@ -13,7 +13,7 @@ const HomePage = () => {
     <>
       <Container className='mt-3'>
         <Row>
-          <Col>
+          <Col lg="6">
             <Card>
               <CardHeader>Programming</CardHeader>
               <CardBody>
@@ -21,7 +21,7 @@ const HomePage = () => {
               </CardBody>
             </Card>
           </Col>
-          <Col>
+          <Col lg="6">
             <BoardGamesCard />
           </Col>
         </Row>
