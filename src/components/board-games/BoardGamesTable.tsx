@@ -12,12 +12,14 @@ import ModalFooter from "reactstrap/lib/ModalFooter";
 import Input from "reactstrap/lib/Input";
 import Label from "reactstrap/lib/Label";
 import Container from "reactstrap/lib/Container";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 enum ActionType {
   RESOLVE_BOARD_GAMES = 'RESOLVE_BOARD_GAMES',
   FETCH_BOARD_GAMES_FAILURE = 'FETCH_BOARD_GAMES_FAILURE',
   TOGGLE_COLUMNS_MODAL = 'TOGGLE_COLUMNS_MODAL',
   TOGGLE_COLUMN = 'TOGGLE_COLUMN',
+  TOGGLE_SORT = 'TOGGLE_SORT',
 }
 
 interface ResolveBoardGamesAction {
@@ -38,10 +40,16 @@ interface ToggleColumnAction {
   columnId: string;
 }
 
+interface ToggleSortAction {
+  type: ActionType.TOGGLE_SORT;
+  columnId: string;
+}
+
 type BoardGamesTableAction = ResolveBoardGamesAction
   | FetchBoardGamesFailureAction
   | ToggleColumnsModalAction
-  | ToggleColumnAction;
+  | ToggleColumnAction
+  | ToggleSortAction;
 
 const resolveBoardGames: (boardGames: BoardGame[]) => ResolveBoardGamesAction = (boardGames: BoardGame[]) => ({
   type: ActionType.RESOLVE_BOARD_GAMES,
@@ -61,6 +69,16 @@ const toggleColumn: (columnId: string) => ToggleColumnAction = (columnId: string
   columnId: columnId
 });
 
+const toggleSort: (columnId: string) => ToggleSortAction = (columnId: string) => ({
+  type: ActionType.TOGGLE_SORT,
+  columnId: columnId
+});
+
+enum SortDirection {
+  ASCENDING = 'ASCENDING',
+  DESCENDING = 'DESCENDING',
+}
+
 interface BoardGamesTableState {
   isPending: boolean;
   error: boolean;
@@ -68,6 +86,8 @@ interface BoardGamesTableState {
   totalItems: number;
   visibleColumns: {[columnTitle: string]: boolean};
   columnsModalOpen: boolean;
+  sortColumn: string;
+  sortDirection: SortDirection;
 }
 
 interface ColumnDefinition {
@@ -88,6 +108,8 @@ const initialState = {
     'play-time': true,
   },
   columnsModalOpen: false,
+  sortColumn: 'name',
+  sortDirection: SortDirection.ASCENDING
 }
 
 const reducer: React.Reducer<BoardGamesTableState, BoardGamesTableAction> = (state: BoardGamesTableState, action: {type: ActionType}) => {
@@ -118,6 +140,20 @@ const reducer: React.Reducer<BoardGamesTableState, BoardGamesTableAction> = (sta
           [columnId]: !(state.visibleColumns.hasOwnProperty(columnId) && state.visibleColumns[columnId]),
         }
       }
+    case ActionType.TOGGLE_SORT:
+      const nextSortColumnId = (action as ToggleSortAction).columnId;
+      let nextSortDirection: SortDirection;
+      if (nextSortColumnId === state.sortColumn) {
+        nextSortDirection = state.sortDirection === SortDirection.ASCENDING ? SortDirection.DESCENDING : SortDirection.ASCENDING;
+      } else {
+        nextSortDirection = SortDirection.ASCENDING;
+      }
+
+      return {
+        ...state,
+        sortColumn: nextSortColumnId,
+        sortDirection: nextSortDirection
+      }
   }
 
   return state;
@@ -134,6 +170,33 @@ const availableColumns: ColumnDefinition[] = [
   {id: 'max-play-time', title: 'Max Play Time', accessor: (boardGame: BoardGame) => boardGame.maxPlayTime},
   {id: 'play-time', title: 'Play Time', accessor: (boardGame: BoardGame) => boardGame.playTime},
 ]
+
+type CompareFunction = (left: any, right: any) => number;
+
+const compareByAccessor: (accessor: (host: any) => any) => CompareFunction = (accessor: (host: any) => any) => {
+  return (left: any, right: any) => {
+    if (accessor(left) < accessor(right)) return -1;
+    if (accessor(left) > accessor(right)) return 1;
+    return 0;
+  }
+}
+
+const sortIcon = (columnId: string, sortColumnId: string, sortDirection: SortDirection) => {
+  if (columnId !== sortColumnId) return 'sort';
+  return sortDirection === SortDirection.ASCENDING ? 'sort-up' : 'sort-down';
+}
+
+const prepareBoardGames = (boardGames: BoardGame[], compareFn: CompareFunction, sortDirection: SortDirection) => {
+  const sortedGames = boardGames
+    .slice().sort(compareFn);
+  const directionallySortedGames = sortDirection === SortDirection.ASCENDING ? sortedGames : sortedGames.slice().reverse();
+  const filteredGames = directionallySortedGames
+    .filter((boardGame: BoardGame) => boardGame.minPlayers <= 3)
+    .filter((boardGame: BoardGame) => boardGame.maxPlayers >=3)
+    // .filter((boardGame: BoardGame) => state.hiddenBoardGames.indexOf(boardGame.id) === -1)
+    // .slice(state.offset, state.offset + state.pageSize)
+  return filteredGames;
+}
 
 export const BoardGamesTable = () => {
   const [state, dispatch] = React.useReducer<BoardGamesTableState, BoardGamesTableAction>(reducer, initialState);
@@ -155,6 +218,8 @@ export const BoardGamesTable = () => {
     state.visibleColumns.hasOwnProperty(columnDefinition.id) && state.visibleColumns[columnDefinition.id]);
 
   const visibleBoardGames = state.boardGames;
+  const boardGameCompareFnAccessor = availableColumns.filter((columnDefinition: ColumnDefinition) => columnDefinition.id === state.sortColumn)[0].accessor;
+  const boardGameCompareFn = compareByAccessor(boardGameCompareFnAccessor);
 
   return (
     <>
@@ -164,17 +229,17 @@ export const BoardGamesTable = () => {
             <thead>
               <tr style={style}>
                 {columns.map((columnDefinition: ColumnDefinition, index: number) => (
-                  <th key={index}>{columnDefinition.title}</th>
+                  <th style={{whiteSpace: 'nowrap'}} key={index}>
+                    {columnDefinition.title}
+                    <Button onClick={() => dispatch(toggleSort(columnDefinition.id))} color={columnDefinition.id === state.sortColumn ? 'warning' : 'secondary'}>
+                      <FontAwesomeIcon icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
+                    </Button>
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody style={{overflowY: 'scroll', maxHeight: '400px', display: 'block'}}>
-              {[...visibleBoardGames]
-                .sort()
-                .filter((boardGame: BoardGame) => boardGame.minPlayers <= 3)
-                .filter((boardGame: BoardGame) => boardGame.maxPlayers >=3)
-                // .filter((boardGame: BoardGame) => state.hiddenBoardGames.indexOf(boardGame.id) === -1)
-                // .slice(state.offset, state.offset + state.pageSize)
+              {prepareBoardGames(visibleBoardGames, boardGameCompareFn, state.sortDirection)
                 .map((boardGame: BoardGame, index: number) => (
                   <tr key={index} style={style}>
                     {columns.map((columnDefinition: ColumnDefinition, index: number) => (

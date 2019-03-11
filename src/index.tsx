@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './custom.scss';
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+library.add(faSort, faSortUp, faSortDown);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
