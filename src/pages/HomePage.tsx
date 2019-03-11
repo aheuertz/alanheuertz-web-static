@@ -11,9 +11,9 @@ import { BoardGamesCard } from "../components/board-games/BoardGamesCard";
 const HomePage = () => {
   return (
     <>
-      <Container className='mt-3'>
+      <Container>
         <Row>
-          <Col lg="6">
+          <Col lg="6" className='mt-3'>
             <Card>
               <CardHeader>Programming</CardHeader>
               <CardBody>
@@ -21,7 +21,7 @@ const HomePage = () => {
               </CardBody>
             </Card>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className='mt-3'>
             <BoardGamesCard />
           </Col>
         </Row>
