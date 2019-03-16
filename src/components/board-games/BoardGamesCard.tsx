@@ -9,7 +9,12 @@ export const BoardGamesCard = () => {
     <Card>
       <CardHeader>My Board Games</CardHeader>
       <CardBody>
-        <BoardGamesTable />
+        <div className="d-none d-md-block">
+          <BoardGamesTable />
+        </div>
+        <div className="d-md-none">
+          Board game collection is currently unavailable on small screens.
+        </div>
       </CardBody>
     </Card>
   );
