@@ -7,11 +7,20 @@ import Col from "reactstrap/lib/Col";
 import CardHeader from "reactstrap/lib/CardHeader";
 import CardBody from "reactstrap/lib/CardBody";
 import { BoardGamesCard } from "../components/board-games/BoardGamesCard";
+import { ArchiveCard } from "../components/archives/ArchiveCard";
 
 const HomePage = () => {
   return (
     <>
       <Container fluid>
+        <Row>
+          <Col xl="6" className='mt-3'>
+            <BoardGamesCard />
+          </Col>
+          <Col xl ="6" className="mt-3">
+            <ArchiveCard />
+          </Col>
+        </Row>
         <Row>
           <Col xl="6" className='mt-3'>
             <Card>
@@ -20,9 +29,6 @@ const HomePage = () => {
                 <WorkInProgress />
               </CardBody>
             </Card>
-          </Col>
-          <Col xl="6" className='mt-3'>
-            <BoardGamesCard />
           </Col>
         </Row>
       </Container>
