@@ -22,7 +22,7 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col xl="6" className='mt-3'>
-            <BoardGamesCard />
+            <BoardGamesCard linkToBoardGamesPage={true} />
           </Col>
         </Row>
       </Container>
