@@ -231,10 +231,10 @@ export const BoardGamesTable = () => {
               <tr style={style}>
                 {columns.map((columnDefinition: ColumnDefinition, index: number) => (
                   <th style={{whiteSpace: 'nowrap'}} key={index}>
-                    {columnDefinition.title}
-                    <SizeBoundResponsiveContainer minimumViewportSize={ViewportSize.SM} display={Display.INLINE}>
+                    <SizeBoundResponsiveContainer minimumViewportSize={ViewportSize.SM} display={Display.INLINE} alternateChildren={columnDefinition.title}>
                       <Button onClick={() => dispatch(toggleSort(columnDefinition.id))} color={columnDefinition.id === state.sortColumn ? 'warning' : 'secondary'}>
-                        <FontAwesomeIcon icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
+                        {columnDefinition.title}
+                        <FontAwesomeIcon className="ml-2" icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
                       </Button>
                     </SizeBoundResponsiveContainer>
                   </th>
