@@ -70,7 +70,7 @@ export const FeedsCard = () => {
   return (
     <Card>
       <CardHeader>Feeds</CardHeader>
-      <CardBody>
+      <CardBody style={{minHeight: "300px"}}>
         <Nav className="justify-content-center" tabs>
           {tabs.map((tab: Tab, index: number) => (
             <NavLink

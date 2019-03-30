@@ -8,7 +8,7 @@ export const ArchiveCard = () => {
   return (
     <Card>
       <CardHeader>Archives</CardHeader>
-      <CardBody>
+      <CardBody style={{minHeight: "300px"}}>
         <ArchiveCollection />
       </CardBody>
     </Card>
