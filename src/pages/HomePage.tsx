@@ -31,7 +31,7 @@ const HomePage = () => {
     <>
       <Container fluid>
         <Row>
-          <Col xl="6" className='mt-3'>
+          <Col xl="5" className='mt-3'>
             <Card>
               <CardHeader>Programming</CardHeader>
               <CardBody>
@@ -39,7 +39,7 @@ const HomePage = () => {
               </CardBody>
             </Card>
           </Col>
-          <Col xl="6" className='mt-3'>
+          <Col xl="7" className='mt-3'>
             <BoardGamesCard linkToBoardGamesPage={true} />
           </Col>
         </Row>

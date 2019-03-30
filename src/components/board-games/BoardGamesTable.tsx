@@ -231,7 +231,7 @@ export const BoardGamesTable = () => {
               <tr style={style}>
                 {columns.map((columnDefinition: ColumnDefinition, index: number) => (
                   <th style={{whiteSpace: 'nowrap'}} key={index}>
-                    <SizeBoundResponsiveContainer minimumViewportSize={ViewportSize.SM} display={Display.INLINE} alternateChildren={columnDefinition.title}>
+                    <SizeBoundResponsiveContainer minimumViewportSize={ViewportSize.MD} display={Display.INLINE} alternateChildren={columnDefinition.title}>
                       <Button onClick={() => dispatch(toggleSort(columnDefinition.id))} color={columnDefinition.id === state.sortColumn ? 'warning' : 'secondary'}>
                         {columnDefinition.title}
                         <FontAwesomeIcon className="ml-2" icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
