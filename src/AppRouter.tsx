@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import { NavigationBar } from "./components/NavigationBar";
+import { BoardGamesPage } from "./pages/BoardGamesPage";
+import { LoginPage } from "./pages/LoginPage";
 
 const AppRouter = () => (
   <Router>
@@ -12,6 +14,8 @@ const AppRouter = () => (
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/projects/" component={ProjectsPage} />
+        <Route path="/board-games/" component={BoardGamesPage} />
+        <Route path="/login" component={LoginPage} />
         <Route component={ErrorPage} />
       </Switch>
     </div>

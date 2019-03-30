@@ -13,6 +13,7 @@ import Input from "reactstrap/lib/Input";
 import Label from "reactstrap/lib/Label";
 import Container from "reactstrap/lib/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SizeBoundResponsiveContainer, ViewportSize, Display } from "../layout/SizeBoundResponsiveContainer";
 
 enum ActionType {
   RESOLVE_BOARD_GAMES = 'RESOLVE_BOARD_GAMES',
@@ -230,10 +231,12 @@ export const BoardGamesTable = () => {
               <tr style={style}>
                 {columns.map((columnDefinition: ColumnDefinition, index: number) => (
                   <th style={{whiteSpace: 'nowrap'}} key={index}>
-                    {columnDefinition.title}
-                    <Button onClick={() => dispatch(toggleSort(columnDefinition.id))} color={columnDefinition.id === state.sortColumn ? 'warning' : 'secondary'}>
-                      <FontAwesomeIcon icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
-                    </Button>
+                    <SizeBoundResponsiveContainer minimumViewportSize={ViewportSize.MD} display={Display.INLINE} alternateChildren={columnDefinition.title}>
+                      <Button onClick={() => dispatch(toggleSort(columnDefinition.id))} color={columnDefinition.id === state.sortColumn ? 'warning' : 'secondary'}>
+                        {columnDefinition.title}
+                        <FontAwesomeIcon className="ml-2" icon={sortIcon(columnDefinition.id, state.sortColumn, state.sortDirection)} />
+                      </Button>
+                    </SizeBoundResponsiveContainer>
                   </th>
                 ))}
               </tr>
