@@ -10,6 +10,7 @@ import { BoardGamesCard } from "../components/board-games/BoardGamesCard";
 import { ArchiveCard } from "../components/archives/ArchiveCard";
 import { isNullOrUndefined } from "util";
 import { getThings } from "../services/things/ThingsService";
+import { FeedsCard } from "../components/feeds/FeedsCard";
 
 const HomePage = () => {
   const [things, setThings] = useState<any[]|null>(null);
@@ -32,16 +33,18 @@ const HomePage = () => {
     <>
       <Container fluid>
         <Row>
-          <Col xl="6" className='mt-3'>
-            <BoardGamesCard linkToBoardGamesPage={true} />
-          </Col>
           <Col xl ="6" className="mt-3">
+            <FeedsCard />
+          </Col>
+          <Col xl="6" className='mt-3'>
             <ArchiveCard />
           </Col>
         </Row>
         <Row>
           <Col xl="6" className='mt-3'>
-
+            <BoardGamesCard linkToBoardGamesPage={true} />
+          </Col>
+          <Col xl="6" className='mt-3'>
             <Card>
               <CardHeader>Programming</CardHeader>
               <CardBody>
