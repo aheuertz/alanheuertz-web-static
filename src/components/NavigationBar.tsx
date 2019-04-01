@@ -34,6 +34,9 @@ export const NavigationBar = (props: NavigationBarProps) => {
               <NavLink tag={Link} to="/projects">Projects</NavLink>
             </NavItem>
             <NavItem>
+            <NavLink tag={Link} to="/charts">Charts</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href="https://github.com/aheuertz" target="_blank">GitHub</NavLink>
             </NavItem>
             <NavItem>
