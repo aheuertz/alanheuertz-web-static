@@ -5,7 +5,7 @@ const ErrorPage = () => {
   return (
     <>
       <div className="text-center">
-        <img height="500px" src={outOfOrder} className="out-of-order" alt="out of order" />
+        <img style={{width: "100%", maxWidth: "612px", height: "auto"}} src={outOfOrder} className="out-of-order" alt="out of order" />
       </div>
     </>
   )
