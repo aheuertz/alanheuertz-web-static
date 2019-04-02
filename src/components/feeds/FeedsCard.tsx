@@ -76,13 +76,14 @@ export const FeedsCard = () => {
             <NavLink
               key={index}
               active={index === activeTab}
-              onClick={() => setActiveTab(index)}>{index === activeTab ? tab.longTitle : tab.shortTitle}</NavLink>
+              onClick={() => setActiveTab(index)}>{tab.shortTitle}</NavLink>
           ))}
         </Nav>
-        <TabContent className="mt-2" activeTab={activeTab}>
+        <TabContent activeTab={activeTab}>
           {tabs.map((tab: Tab, index: number) => (
             <TabPane tabId={index} key={index}>
-              {loading && <Spinner />}
+              <div className="text-center my-2">Feed: {tab.longTitle}</div>
+              {loading && <div className="text-center"><Spinner /></div>}
               {!isNullOrUndefined(error) && error}
               {!isNullOrUndefined(feed) && !isNullOrUndefined(feed.items) && (
                 <Table size="sm">

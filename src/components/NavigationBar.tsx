@@ -34,6 +34,9 @@ export const NavigationBar = (props: NavigationBarProps) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mx-auto" navbar>
             <NavItem>
+              <NavLink tag={Link} to="/feeds">Feeds</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink tag={Link} to="/projects">Projects</NavLink>
             </NavItem>
             <NavItem>
