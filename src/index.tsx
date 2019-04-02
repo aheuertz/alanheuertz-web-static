@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './custom.scss';
+import './index.scss';
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSort, faSortUp, faSortDown, faUser, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
