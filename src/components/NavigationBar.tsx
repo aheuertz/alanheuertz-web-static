@@ -37,9 +37,6 @@ export const NavigationBar = (props: NavigationBarProps) => {
             <NavLink tag={Link} to="/charts">Charts</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/aheuertz" target="_blank">GitHub</NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink tag={Link} to="/login"><FontAwesomeIcon className="mr-2" icon="user" />Log in</NavLink>
             </NavItem>
             {/* <NavItem>
