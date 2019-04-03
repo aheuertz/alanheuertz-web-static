@@ -110,7 +110,7 @@ export const ChartsPage = () => {
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           {/* <PolarRadiusAxis angle={30} domain={[0, 150]} /> */}
-          <Radar dataKey="Hero" stroke="#8884d8" fill="#bb0000" fillOpacity={0.6} />
+          <Radar dataKey="Hero" stroke="#bb0000" fill="#bb0000" fillOpacity={0.6} />
           <Radar dataKey="Villain" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
           <Legend />
           <Tooltip />
