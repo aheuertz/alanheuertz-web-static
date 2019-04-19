@@ -14,76 +14,92 @@ import Table from "reactstrap/lib/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Tab {
-  shortTitle: string,
-  longTitle: string,
-  rssFeedUrl: string,
+  shortTitle: string;
+  longTitle: string;
+  rssFeedUrl: string;
 }
 
 const tabs = [
   {
-    shortTitle: 'HN',
-    longTitle: 'Hacker News',
-    rssFeedUrl: 'https://news.ycombinator.com/rss',
+    shortTitle: "YC",
+    longTitle: "Hacker News",
+    rssFeedUrl: "https://news.ycombinator.com/rss"
   },
   {
-    shortTitle: 'SH',
-    longTitle: 'Scott Hanselman',
-    rssFeedUrl: 'http://feeds.hanselman.com/ScottHanselman',
+    shortTitle: "HN",
+    longTitle: "Hacker Noon",
+    rssFeedUrl: "https://hackernoon.com/feed"
   },
   {
-    shortTitle: 'ALA',
-    longTitle: 'A List Apart',
-    rssFeedUrl: 'https://alistapart.com/main/feed',
+    shortTitle: "SH",
+    longTitle: "Scott Hanselman",
+    rssFeedUrl: "http://feeds.hanselman.com/ScottHanselman"
   },
   {
-    shortTitle: 'CH',
-    longTitle: 'Coding Horror',
-    rssFeedUrl: 'https://blog.codinghorror.com/feed',
+    shortTitle: "ALA",
+    longTitle: "A List Apart",
+    rssFeedUrl: "https://alistapart.com/main/feed"
   },
-]
+  {
+    shortTitle: "CH",
+    longTitle: "Coding Horror",
+    rssFeedUrl: "https://blog.codinghorror.com/feed"
+  }
+];
 
 export const FeedsCard = () => {
   const [activeTab, setActiveTab] = React.useState(0);
-  const [error, setError] = React.useState<string|undefined>(undefined);
-  const [feed, setFeed] = React.useState<Parser.Output|undefined>(undefined);
+  const [error, setError] = React.useState<string | undefined>(undefined);
+  const [feed, setFeed] = React.useState<Parser.Output | undefined>(undefined);
   const [loading, setLoading] = React.useState(false);
   const pageSize = 5;
 
-  React.useEffect(() => {
-    setLoading(true);
-    setError(undefined);
-    setFeed(undefined);
-    const parser = new Parser();
-    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-    parser.parseURL(CORS_PROXY + tabs[activeTab].rssFeedUrl)
-      .then((feed: Parser.Output) => {
-        setLoading(false);
-        setFeed(feed);
-      })
-      .catch((error: Error) => {
-        setLoading(false);
-        console.error("Unable to fetch RSS feed", error);
-        setError("Unable to fetch RSS feed");
-      });
-  }, [activeTab]);
+  React.useEffect(
+    () => {
+      setLoading(true);
+      setError(undefined);
+      setFeed(undefined);
+      const parser = new Parser();
+      const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      parser
+        .parseURL(CORS_PROXY + tabs[activeTab].rssFeedUrl)
+        .then((feed: Parser.Output) => {
+          setLoading(false);
+          setFeed(feed);
+        })
+        .catch((error: Error) => {
+          setLoading(false);
+          console.error("Unable to fetch RSS feed", error);
+          setError("Unable to fetch RSS feed");
+        });
+    },
+    [activeTab]
+  );
 
   return (
     <Card>
       <CardHeader>Feeds</CardHeader>
-      <CardBody style={{minHeight: "300px"}}>
+      <CardBody style={{ minHeight: "300px" }}>
         <Nav className="justify-content-center" tabs>
           {tabs.map((tab: Tab, index: number) => (
             <NavLink
               key={index}
               active={index === activeTab}
-              onClick={() => setActiveTab(index)}>{tab.shortTitle}</NavLink>
+              onClick={() => setActiveTab(index)}
+            >
+              {tab.shortTitle}
+            </NavLink>
           ))}
         </Nav>
         <TabContent activeTab={activeTab}>
           {tabs.map((tab: Tab, index: number) => (
             <TabPane tabId={index} key={index}>
               <div className="text-center my-2">Feed: {tab.longTitle}</div>
-              {loading && <div className="text-center"><Spinner /></div>}
+              {loading && (
+                <div className="text-center">
+                  <Spinner />
+                </div>
+              )}
               {!isNullOrUndefined(error) && error}
               {!isNullOrUndefined(feed) && !isNullOrUndefined(feed.items) && (
                 <Table size="sm">
@@ -91,7 +107,17 @@ export const FeedsCard = () => {
                     {feed.items.slice(0, pageSize).map(item => (
                       <tr>
                         <td>{moment(item.isoDate).fromNow()}</td>
-                        <td><a href={item.link} target="_blank">{item.title}<FontAwesomeIcon size="sm" color="gray" icon="external-link-alt" className="ml-2" /></a></td>
+                        <td>
+                          <a href={item.link} target="_blank">
+                            {item.title}
+                            <FontAwesomeIcon
+                              size="sm"
+                              color="gray"
+                              icon="external-link-alt"
+                              className="ml-2"
+                            />
+                          </a>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -103,4 +129,4 @@ export const FeedsCard = () => {
       </CardBody>
     </Card>
   );
-}
+};
